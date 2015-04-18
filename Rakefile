@@ -56,7 +56,6 @@ namespace :fire do
     end
   end
 
-  task :starter => [:app, :tinderbox, :bundle, :db, :test]
-  task :turbo   => [:starter, :guard, :open]
+  task :starter => [:app, :tinderbox, :bundle, :db, :test, :guard, :open]
 
 end
