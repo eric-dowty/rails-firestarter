@@ -1,0 +1,7 @@
+<% if logged_in? %>
+  <%= button_to 'Logout', logout_path, method: :delete %>
+<% else %>
+  <%= link_to 'Login', login_path, method: :get %>
+<% end %>
+<%= link_to 'Items', items_path %>
+<%= button_to "Cart (#{load_cart.count_items})", cart_index_path, method: :get %>

@@ -1,0 +1,1 @@
+# Build seed file required for production application (e.g. Heroku upload)

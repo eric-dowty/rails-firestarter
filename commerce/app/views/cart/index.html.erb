@@ -1,0 +1,27 @@
+<% if @cart.empty? %>
+  <h3><em>
+      no items<br>
+      <h4>
+        'complete order' button will show with items in cart
+      </h4>
+  </em></h3>
+<% else %>
+  <% @cart.contents_with_object.each do |item, quantity| %>
+    <p>
+      item: <%= item.title %>
+      quantity: <%= quantity %>
+      price: <%= number_to_currency(item.price/100) %>
+      subtotal: <%= number_to_currency(item.subtotal(quantity)/100) %>
+    </p>
+    <%= button_to '+', cart_path(id: item.id, adjust: 'increase'), method: :put %>
+    <%= button_to '-', cart_path(id: item.id, adjust: 'decrease'), method: :put %>
+    <%= button_to 'remove', cart_path(id: item.id, adjust: 'remove'), method: :put %>
+  <% end %>
+  total: <%= number_to_currency(@cart.total/100) %>
+  <% if logged_in? %>
+    <%= button_to 'Complete Order', orders_path %>
+  <% else %>
+    <%= link_to 'Login to complete order', login_path %>
+  <% end %>
+<% end %>
+

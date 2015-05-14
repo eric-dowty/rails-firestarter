@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Literail</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag "favicon.ico" %>
+</head>
+<body>
+  <div class="container-fluid">
+
+    <div class="custom-navbar">
+      <%= render partial: 'layouts/nav' %>
+    </div>
+
+    <% flash.each do |type, message| %>
+      <%= content_tag :div, message, id: "flash_#{type}" %>
+    <% end %>
+
+    <%= yield %>
+
+  </div>
+</body>
+</html>

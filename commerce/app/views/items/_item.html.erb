@@ -1,0 +1,10 @@
+<div class='index-item'>
+  <%= image_tag(item.image) %><br>
+  <%= item.title %><br>
+  <%= number_to_currency(item.price/100) %><br>
+  <%= form_for(:item, url: :cart_index) do |f| %>
+    <%= f.hidden_field :item_id, value: item.id %>
+    <%= f.text_field   :quantity, value: 1 %>
+    <%= f.submit 'Add to cart' %>
+  <% end %><br>
+</div>

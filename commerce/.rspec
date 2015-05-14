@@ -1,0 +1,5 @@
+--color
+--require spec_helper
+--require emoji-rspec
+--format hearts
+--format documentation

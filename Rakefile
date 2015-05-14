@@ -14,6 +14,7 @@ namespace :fire do
     system("cp tinderbox/application.css.sass ../#{app}/app/assets/stylesheets")
     system("cp -f tinderbox/application.js ../#{app}/app/assets/javascripts")
     system("cp -f tinderbox/routes.rb ../#{app}/config")
+    system("cp -f tinderbox/application.html.erb ../#{app}/app/views/layouts")
   end
 
   task :bundle do
@@ -30,6 +31,13 @@ namespace :fire do
     end
   end
 
+  task :db_drop do
+    app = ENV["app"] || "sandbox"
+    Dir.chdir "../#{app}" do
+      system("rake db:drop")
+    end
+  end
+
   task :test do
     app = ENV["app"] || "sandbox"
     Dir.chdir "../#{app}" do
@@ -39,7 +47,8 @@ namespace :fire do
     end
     system("cp -f tinderbox/.rspec ../#{app}")
     system("cp -f tinderbox/spec_helper.rb ../#{app}/spec")
-    system("cp tinderbox/user_sees_root_spec.rb ../#{app}/spec/features")
+    system("cp -f tinderbox/rails_helper.rb ../#{app}/spec")
+    system("cp tinderbox/user_feature_spec.rb ../#{app}/spec/features")
   end    
 
   task :guard do
@@ -57,5 +66,20 @@ namespace :fire do
   end
 
   task :starter => [:app, :tinderbox, :bundle, :db, :test, :guard, :open]
+  
+  task :copy_secure do 
+    app = ENV["app"] || "sandbox"
+    system("cp -r secure ..")
+    system("mv ../secure ../#{app}")
+  end
 
+  task :secure => [:copy_secure, :bundle, :db_drop, :open]
+
+  task :copy_commerce do 
+    app = ENV["app"] || "sandbox"
+    system("cp -r commerce ..")
+    system("mv ../commerce ../#{app}")
+  end
+
+  task :commerce => [:copy_commerce, :bundle, :db_drop, :open]
 end

@@ -1,0 +1,11 @@
+<%= @order_report.user.email %><br>
+<%= @order_report.status.name %><br>
+<%= @order_report.created %><br>
+<% @order_report.items_data.each do |title, data| %>
+  <%= title %>
+  quantity: <%= data[:quantity] %>
+  price: <%= number_to_currency(data[:price]/100) %>
+  subtotal: <%= number_to_currency(data[:subtotal]/100) %>
+  <br>
+<% end %>
+total: <%= number_to_currency(@order_report.total/100) %>
